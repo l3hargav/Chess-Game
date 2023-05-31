@@ -11,7 +11,7 @@ export default function Board(props) {
             if ((i+j) % 2 === 0){
                 shade = "black";
             }
-            board.push(<Tile color={shade} onClick={props.onClick} src={props.squares[index] ? props.squares[index].image : null} />)
+            board.push(<Tile color={shade} onClick={props.onClick} src={props.board[index] ? props.board[index].image : null} />)
             index += 1;
         }
     }
