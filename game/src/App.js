@@ -1,9 +1,9 @@
 import './App.css';
-import Board from "./components/Board.js"
+import Game from "./components/Game.js"
 function App() {
   return (
     <div id="app">
-      <Board />
+      <Game />
     </div>
   );
 }
