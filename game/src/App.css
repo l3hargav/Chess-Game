@@ -1,13 +1,13 @@
 #app{
     display: grid;
     place-content: center;
+    height: 100vh;
     background-color: rgb(39, 36, 36);
 }
 
 .board{
     display: flex;
     flex-wrap: wrap;
-    margin: 6px;
     border: solid white;
     width: 700px;
     height:700px;
@@ -15,12 +15,16 @@
 }
 
 .black{
+    display: grid;
+    place-content: center;
     width: 87.5px;
     height: 87.5px;
     background-color: #769656;
 }
 
 .white{
+    display: grid;
+    place-content: center;
     width: 87.5px;
     height: 87.5px;
     background-color:#eeeed2;
