@@ -2,8 +2,7 @@ import "../App.css"
 import Tile from "./Tile.js"
 
 export default function Board(props) {
-    const board = []
-    let index = 0;
+    let board = []
     for(let i = 0; i < 8; i++){
         for (let j = 0; j < 8; j++){
             let shade = "white";
@@ -12,9 +11,8 @@ export default function Board(props) {
                 shade = "black";
             }
             board.push(<Tile color={shade} onClick={props.onClick} src={props.board[index] ? props.board[index].image : null} />)
-            index += 1;
         }
-    }
+    } 
     return(
         <div className="board">
             {board}
