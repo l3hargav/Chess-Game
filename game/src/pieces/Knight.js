@@ -18,7 +18,7 @@ export default class Knight extends Piece {
             curr + 10 === dest ||
             curr + 17 === dest ||
             curr - 6 === dest ||
-            curr - 15 === dest
+            curr - 15 === dest 
         )
     }
 
