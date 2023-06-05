@@ -27,7 +27,7 @@ export default class Rook extends Piece {
             start = curr;
             end = dest;
         }
-        if(Math.abs(curr - dest) === 0) {
+        if(Math.abs(curr - dest) % 8 === 0) {
             increment = 8;
             start += 8;
         }
