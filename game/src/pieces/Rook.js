@@ -11,7 +11,7 @@ export default class Rook extends Piece {
     //CHECKS IF GIVEN MOVE IS POSSIBLE
     isMovePossible(curr, dest) {
         return (
-            Math.abs(curr - dest) % 8 === 0 || (dest >= (curr - (curr % 8)) && dest > (curr + (8 - curr % 8)))
+            Math.abs(curr - dest) % 8 === 0 || (dest >= (curr - (curr % 8)) && dest < (curr + (8 - curr % 8)))
         )
     }
 

@@ -13,7 +13,7 @@ export default class Queen extends Piece {
         let rook, bishop;
 
         // FOR ROOK LIKE MOVE
-        rook = Math.abs(curr - dest) % 8 === 0 || (dest >= (curr - (curr % 8)) && dest > (curr + (8 - curr % 8)));
+        rook = Math.abs(curr - dest) % 8 === 0 || (dest >= (curr - (curr % 8)) && dest < (curr + (8 - curr % 8)));
 
         //FOR DIAGONALS
         bishop = Math.abs(curr - dest) % 9 === 0 || Math.abs(curr - dest) % 7 === 0
