@@ -54,15 +54,38 @@ export default function Game() {
                 
                 // CHECK IF MOVE IS POSSIBLE AND WHETHER IT IS LEGAL
                 if(squares[state.selected].isMovePossible(current, destination, occupied) && isLegal(path, destination)){
-                    squares[i] = squares[state.selected];
-                    squares[state.selected] = null;
-                    setState({
-                        board: squares,
-                        player: state.player === 0? 1 : 0,
-                        turn: state.turn === "white"? "black" : "white",
-                        selected: -1,
-                        status: "Next Player"
-                    })
+                    if(isCheck(squares, state.player)) {
+                        squares[i] = squares[state.selected];
+                        squares[state.selected] = null;
+                        if(isCheck(squares, state.player)) {
+                            setState({
+                                ...state,
+                                selected: -1,
+                                status: "Not appropriate move still in check"
+                            })
+                        }
+                        else {
+                            setState({
+                                board: squares,
+                                player: state.player === 0? 1 : 0,
+                                turn: state.turn === "white"? "black" : "white",
+                                selected: -1,
+                                status: "Next Player"
+                            })
+                        }
+                    }
+                    else {
+                        squares[i] = squares[state.selected];
+                        squares[state.selected] = null;
+                        setState({
+                            board: squares,
+                            player: state.player === 0? 1 : 0,
+                            turn: state.turn === "white"? "black" : "white",
+                            selected: -1,
+                            status: "Next Player"
+                        })
+                    }
+                    
                 }
                 else {
                     setState({
@@ -74,6 +97,7 @@ export default function Game() {
 
             }
         }
+
         // CHECKS WHETHER A MOVE IS LEGAL
         function isLegal(path, destination) {
             if(state.board[destination]?.player === state.player) {
@@ -88,13 +112,12 @@ export default function Game() {
         }
 
         
-        //TODO: LOGIC FOR "CHECK"
 
-        function isCheck(player) {
-            let squares = state.board.slice();
+        // CHECK WHETHER PLAYER IS IN CHECK
+        function isCheck(board, player) {
             function isMoveLegal(path) {
                 for(let i = 0; i < path.length; i++){
-                    if(squares[path[i]] !== null) {
+                    if(board[path[i]] !== null) {
                         return false;
                     }
                 }
@@ -102,19 +125,19 @@ export default function Game() {
             }
             let posOfKing;
             for(let i = 0; i < 64; i++) {
-                if(squares[i] instanceof King && squares[i].player === player) {
+                if(board[i] instanceof King && board[i].player === player) {
                     posOfKing = i;
                 }
             }
             for(let i = 0; i < 64; i++) {
-                if(squares[i] === null) {
+                if(board[i] === null) {
                     continue;
                 }
-                else if(squares[i].player !== player){
-                    let occupied = squares[i]? true: false;
-                    let path = squares[i].getPath(i, posOfKing);
+                else if(board[i].player !== player){
+                    let occupied = board[i]? true: false;
+                    let path = board[i].getPath(i, posOfKing);
                     
-                    if(squares[i].isMovePossible(i, posOfKing, occupied) && isMoveLegal(path)){
+                    if(board[i].isMovePossible(i, posOfKing, occupied) && isMoveLegal(path)){
                         return true;
                     }
                     
@@ -139,7 +162,7 @@ export default function Game() {
         useEffect(() => {
             console.log(state.status);
             console.log(state.player);
-            console.log(isCheck(state.player));
+            console.log(isCheck(state.board, state.player));
         }, [state])
 
         return (
