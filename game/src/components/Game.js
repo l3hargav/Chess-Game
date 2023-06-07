@@ -5,6 +5,7 @@ import "../App.css";
 import { useState, useEffect } from "react"
 import Board from "./Board.js"
 import InitializeChessboard from "../helperFunctions/InitializeChessboard.js"
+import King from "../pieces/King.js"
 
 /*
     FOR PLAYER:
@@ -52,8 +53,7 @@ export default function Game() {
                 let path = squares[state.selected].getPath(current, destination);
                 
                 // CHECK IF MOVE IS POSSIBLE AND WHETHER IT IS LEGAL
-                if(squares[state.selected].isMovePossible(current, destination, occupied) && isLegal(path, destination)) {
-                    console.log(path)
+                if(squares[state.selected].isMovePossible(current, destination, occupied) && isLegal(path, destination)){
                     squares[i] = squares[state.selected];
                     squares[state.selected] = null;
                     setState({
@@ -71,9 +71,9 @@ export default function Game() {
                         status: "Move not possible"
                     })
                 }
+
             }
         }
-
         // CHECKS WHETHER A MOVE IS LEGAL
         function isLegal(path, destination) {
             if(state.board[destination]?.player === state.player) {
@@ -88,25 +88,58 @@ export default function Game() {
         }
 
         
-        //TODO: LOGIC FOR WHEN GAME FINISHES
+        //TODO: LOGIC FOR "CHECK"
+
+        function isCheck(player) {
+            let squares = state.board.slice();
+            function isMoveLegal(path) {
+                for(let i = 0; i < path.length; i++){
+                    if(squares[path[i]] !== null) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            let posOfKing;
+            for(let i = 0; i < 64; i++) {
+                if(squares[i] instanceof King && squares[i].player === player) {
+                    posOfKing = i;
+                }
+            }
+            for(let i = 0; i < 64; i++) {
+                if(squares[i] === null) {
+                    continue;
+                }
+                else if(squares[i].player !== player){
+                    let occupied = squares[i]? true: false;
+                    let path = squares[i].getPath(i, posOfKing);
+                    
+                    if(squares[i].isMovePossible(i, posOfKing, occupied) && isMoveLegal(path)){
+                        return true;
+                    }
+                    
+                }
+            }
+            return false;
+        }
 
 
 
 
 
-        
+        //TODO: LOGIC FOR CHECKMATE AND GAME END        
 
 
 
 
 
 
-
-        
 
         // CONSOLE LOG THE STATUS OF THE BOARD STATE AFTER EACH RENDER
         useEffect(() => {
             console.log(state.status);
+            console.log(state.player);
+            console.log(isCheck(state.player));
         }, [state])
 
         return (
