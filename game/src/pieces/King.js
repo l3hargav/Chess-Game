@@ -29,4 +29,10 @@ export default class King extends Piece {
     getPath(curr, dest) {
         return [] //Empty because destination is adjacent tile
     }
+
+    allMoves(curr) {
+        return [curr - 1, curr + 1, curr + 8, curr - 8, curr + 7, curr - 9, curr + 9, curr - 7].filter(move => {
+            return move >= 0;
+        })
+    }
 }
