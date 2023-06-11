@@ -54,10 +54,10 @@ export default function Game() {
                 
                 // CHECK IF MOVE IS POSSIBLE AND WHETHER IT IS LEGAL
                 if(squares[state.selected].isMovePossible(current, destination, occupied) && isLegal(path, destination)){
-                    if(isCheck(squares, state.player)) {
+                    if(isCheck(squares, state.player)[0]) {
                         squares[i] = squares[state.selected];
                         squares[state.selected] = null;
-                        if(isCheck(squares, state.player)) {
+                        if(isCheck(squares, state.player)[0]) {
                             setState({
                                 ...state,
                                 selected: -1,
@@ -138,12 +138,12 @@ export default function Game() {
                     let path = board[i].getPath(i, posOfKing);
                     
                     if(board[i].isMovePossible(i, posOfKing, occupied) && isMoveLegal(path)){
-                        return true;
+                        return [true, i, ...path];
                     }
                     
                 }
             }
-            return false;
+            return [false];
         }
 
 
@@ -152,9 +152,56 @@ export default function Game() {
 
         //TODO: LOGIC FOR CHECKMATE AND GAME END        
 
+        function isCheckmate(board, player) {
+            let squares = board.slice();
+            let check = isCheck(board, player);
+            let legal = [];
+            if(check[0]) {
 
+                //FOR KING
+                for(let i = 0; i < 64; i++) {
+                    if(squares[i] instanceof King && squares[i].player === player) {
+                        let moves = squares[i].allMoves(i).filter((move) => {
+                            return isLegal([], move);
+                        })
+                        //console.log(moves);
+                        for(let j = 0; j < moves.length; j++) {
+                            squares[moves[j]] = squares[i];
+                            squares[i] = null;
+                            if(!isCheck(squares, player)[0]) {
+                                legal.push(moves[j]);
+                            }
+                            squares = board.slice();
+                        }
 
+                        break;
+                    }
+                }
 
+                //FOR OTHER PIECES
+                for(let i = 0; i < 64; i++) {
+                    let path = check.slice(1);
+                    if(squares[i]?.player === player && !(squares[i] instanceof King)) {
+                        for(let j = 0; j < path.length; j++) {
+                            if(squares[i].isMovePossible(i, path[j]) && isLegal(squares[i].getPath(i, path[j]), path[j])) {
+                                legal.push(squares[i]);
+                                break;
+                            }
+                        }
+                    }
+                }
+                
+            }
+            else {
+                return false;
+            }
+            if(legal.length > 0) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
 
 
 
@@ -162,7 +209,8 @@ export default function Game() {
         useEffect(() => {
             console.log(state.status);
             console.log(state.player);
-            console.log(isCheck(state.board, state.player));
+            //console.log(isCheck(state.board, state.player));
+            console.log(isCheckmate(state.board, state.player))
         }, [state])
 
         return (
