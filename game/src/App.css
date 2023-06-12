@@ -29,3 +29,25 @@
     height: 87.5px;
     background-color:#eeeed2;
 }
+
+#home {
+    display: grid;
+    place-content: center;
+    height: 100vh;
+    background-color: rgb(39, 36, 36);
+}
+
+#home input {
+    display: block;
+    height: 30px;
+    width: 300px;
+    margin: 2px;
+}
+
+#home img {
+    display: inline;
+}
+#home h1 {
+    display: inline;
+    color: white;
+}

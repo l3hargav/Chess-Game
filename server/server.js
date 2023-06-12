@@ -1,4 +1,11 @@
-const express = require('express') // IMPORT EXPRESS
+const express = require("express") //IMPORT EXPRESS
 
-const app = express() // MAKE APP THAT SETS UP SERVER
+const app = express();
 
+app.get("/", (req, res) => {
+    res.json({"users": [1, 2, 3]})
+})
+
+app.listen(5000, () => {
+    console.log("Server running on port 5000")
+})
