@@ -4,7 +4,7 @@ export default class King extends Piece {
     constructor(player){
         super(
             player,
-            (player === 0 ? "images/king_white.jpg" : "images/king_black.jpg")
+            (player === 0 ? "../../images/king_white.jpg" : "../../images/king_black.jpg")
         );
     }
     //CHECKS IF GIVEN MOVE IS POSSIBLE

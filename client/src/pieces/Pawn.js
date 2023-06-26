@@ -4,7 +4,7 @@ export default class Pawn extends Piece {
     constructor(player){
         super(
             player,
-            (player === 0 ? "images/pawn_white.jpg" : "images/pawn_black.jpg")
+            (player === 0 ? "../../images/pawn_white.jpg" : "../../images/pawn_black.jpg")
         );
         this.initialPositions = {
             0: [48, 49, 50, 51, 52, 53, 54, 55],

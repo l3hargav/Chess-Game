@@ -4,7 +4,7 @@ export default class Bishop extends Piece {
     constructor(player){
         super(
             player,
-            (player === 0 ? "images/bishop_white.jpg" : "images/bishop_black.jpg")
+            (player === 0 ? "../../images/bishop_white.jpg" : "../../images/bishop_black.jpg")
         );
     }
 
