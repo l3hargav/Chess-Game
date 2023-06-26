@@ -1,11 +1,11 @@
-#app{
+.game-board { 
     display: grid;
     place-content: center;
     height: 100vh;
     background-color: rgb(39, 36, 36);
 }
 
-.board{
+.board {
     display: flex;
     flex-wrap: wrap;
     border: solid white;
@@ -14,7 +14,7 @@
     background-color: beige;
 }
 
-.black{
+.black {
     display: grid;
     place-content: center;
     width: 87.5px;
@@ -22,7 +22,7 @@
     background-color: #769656;
 }
 
-.white{
+.white {
     display: grid;
     place-content: center;
     width: 87.5px;
@@ -30,24 +30,66 @@
     background-color:#eeeed2;
 }
 
-#home {
+#mainpage {
     display: grid;
     place-content: center;
     height: 100vh;
     background-color: rgb(39, 36, 36);
 }
 
-#home input {
+#mainpage input {
     display: block;
     height: 30px;
     width: 300px;
     margin: 2px;
 }
 
-#home img {
+#mainpage img {
     display: inline;
 }
-#home h1 {
+#mainpage h1, h2  {
     display: inline;
+    color: beige;
+}
+
+#mainpage a {
+    display: block;
+    color: beige;
+}
+
+#input-link {
+    margin: 15px;
+}
+
+#input-link button {
     color: white;
+    background-color: #769656;
 }
+
+#main {
+    display: grid;
+    place-content: center;
+    height: 100vh;
+    background-color: rgb(39, 36, 36);
+}
+
+#login button {
+    color: beige;
+    background-color: #769656;
+    height: 30px;
+    width: 200px;
+}
+
+#signup button {
+    color: beige;
+    background-color: #769656;
+    height: 30px;
+    width: 200px;
+}
+
+h1 {
+    display: inline;
+    color: beige;
+}
+
+
